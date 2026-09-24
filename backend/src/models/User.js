@@ -31,26 +31,21 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Hash password before saving to database (min 10 salt rounds)
 userSchema.pre('save', async function () {
-  if (!this.isModified('password')) {
-    return;
-  }
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Compare candidate password with hashed password
 userSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Remove password and refreshToken from response objects by default
 userSchema.methods.toJSON = function () {
-  const userObject = this.toObject();
-  delete userObject.password;
-  delete userObject.refreshToken;
-  return userObject;
+  const user = this.toObject();
+  delete user.password;
+  delete user.refreshToken;
+  return user;
 };
 
 const User = mongoose.model('User', userSchema);

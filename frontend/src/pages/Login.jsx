@@ -17,7 +17,6 @@ const Login = ({ setView }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear errors when typing
     if (fieldErrors[name]) {
       setFieldErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -32,11 +31,9 @@ const Login = ({ setView }) => {
 
     try {
       await login(formData.email, formData.password);
-      // On success, redirect to products view
       setView('products');
     } catch (err) {
       if (err.response?.status === 400 && err.response?.data?.errors) {
-        // Map express-validator field-level errors
         const errorsMap = {};
         err.response.data.errors.forEach((item) => {
           errorsMap[item.field] = item.message;

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-// Generate short-lived access token (15 mins)
 const generateAccessToken = (userId) => {
   return jwt.sign(
     { id: userId },
@@ -9,7 +8,6 @@ const generateAccessToken = (userId) => {
   );
 };
 
-// Generate long-lived refresh token (7 days)
 const generateRefreshToken = (userId) => {
   return jwt.sign(
     { id: userId },

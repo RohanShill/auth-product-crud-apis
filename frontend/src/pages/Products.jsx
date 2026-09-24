@@ -32,7 +32,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Filters & Pagination state
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('newest');
@@ -40,7 +39,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  // Fetch products from API
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     setError('');
@@ -78,7 +76,7 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setPage(1); // Reset to page 1 on new search
+    setPage(1);
   };
 
   const handleCategoryChange = (cat) => {
@@ -91,7 +89,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
     setPage(1);
   };
 
-  // Seed sample products if database is empty
   const handleSeedProducts = async () => {
     if (!isAuthenticated) {
       alert('Please log in first to add sample products.');
@@ -143,7 +140,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
 
   return (
     <div className="products-page">
-      {/* Hero / Filter Bar */}
       <section className="products-toolbar">
         <div className="toolbar-header">
           <div>
@@ -165,7 +161,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
           )}
         </div>
 
-        {/* Search, Filter, Sort Controls */}
         <div className="filter-controls">
           <div className="search-bar">
             <Search size={18} className="search-icon" />
@@ -200,7 +195,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
           </div>
         </div>
 
-        {/* Category Pills */}
         <div className="category-chips">
           {CATEGORIES.map((cat) => (
             <button
@@ -215,7 +209,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
         </div>
       </section>
 
-      {/* Main Grid Content */}
       <section className="products-grid-section">
         {error && (
           <div className="alert alert-danger">
@@ -285,7 +278,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
                       </div>
                     </div>
 
-                    {/* Action buttons (only show if logged in and owner) */}
                     {isAuthenticated && isOwner && (
                       <div className="card-actions">
                         <button
@@ -311,7 +303,6 @@ const Products = ({ onEditProduct, onDeleteProduct, refreshTrigger }) => {
               })}
             </div>
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination">
                 <button

@@ -1,6 +1,5 @@
 const { body, param, query } = require('express-validator');
 
-// Create product validation rules
 const createProductRules = [
   body('name')
     .trim()
@@ -34,7 +33,6 @@ const createProductRules = [
     .withMessage('Stock must be an integer of 0 or greater')
 ];
 
-// Update product validation rules
 const updateProductRules = [
   param('id')
     .isMongoId()
@@ -73,14 +71,12 @@ const updateProductRules = [
     .withMessage('Stock must be an integer of 0 or greater')
 ];
 
-// Product ID route param validation rule
 const productIdParamRule = [
   param('id')
     .isMongoId()
     .withMessage('Invalid product ID format')
 ];
 
-// Optional query params validation for listing products
 const listProductQueryRules = [
   query('page')
     .optional()

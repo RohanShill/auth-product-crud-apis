@@ -44,7 +44,6 @@ const Register = ({ setView }) => {
       });
     } catch (err) {
       if (err.response?.status === 400 && err.response?.data?.errors) {
-        // Map express-validator field errors
         const errorsMap = {};
         err.response.data.errors.forEach((item) => {
           errorsMap[item.field] = item.message;

@@ -11,7 +11,7 @@ import api from './api/axios';
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
 
-  const [currentView, setCurrentView] = useState('products'); // 'products' | 'login' | 'register'
+  const [currentView, setCurrentView] = useState('products');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
   const [productToDelete, setProductToDelete] = useState(null);
@@ -78,7 +78,6 @@ const MainLayout = () => {
         {currentView === 'register' && <Register setView={setCurrentView} />}
       </main>
 
-      {/* Product Add / Edit Modal */}
       <ProductModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -86,7 +85,6 @@ const MainLayout = () => {
         productToEdit={productToEdit}
       />
 
-      {/* Delete Confirmation Modal */}
       <DeleteModal
         isOpen={!!productToDelete}
         onClose={() => setProductToDelete(null)}

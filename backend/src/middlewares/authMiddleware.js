@@ -13,7 +13,6 @@ const authenticate = async (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -21,10 +20,7 @@ const authenticate = async (req, res, next) => {
       });
     }
 
-    // Verify token with secret
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    // Fetch user without password
     const user = await User.findById(decoded.id).select('-password');
     if (!user) {
       return res.status(401).json({

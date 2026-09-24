@@ -8,7 +8,6 @@ const Navbar = ({ onOpenAddModal, currentView, setView }) => {
   return (
     <header className="navbar-wrapper">
       <div className="navbar-container">
-        {/* Brand Logo */}
         <div className="navbar-brand" onClick={() => setView('products')}>
           <div className="brand-icon">
             <ShoppingBag size={22} />
@@ -19,7 +18,6 @@ const Navbar = ({ onOpenAddModal, currentView, setView }) => {
           </div>
         </div>
 
-        {/* Action Controls */}
         <div className="navbar-actions">
           {isAuthenticated ? (
             <>

@@ -1,8 +1,5 @@
 const Product = require('../models/Product');
 
-// @desc    Create a new product
-// @route   POST /api/products
-// @access  Authenticated
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, stock } = req.body;
@@ -16,7 +13,6 @@ const createProduct = async (req, res) => {
       createdBy: req.user._id
     });
 
-    // Populate creator info
     await product.populate('createdBy', 'name email');
 
     return res.status(201).json({
@@ -33,9 +29,6 @@ const createProduct = async (req, res) => {
   }
 };
 
-// @desc    List all products with optional search, category filter, and pagination
-// @route   GET /api/products
-// @access  Public
 const getAllProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
@@ -43,7 +36,6 @@ const getAllProducts = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const { search, category, sort } = req.query;
-
     const query = {};
 
     if (search) {
@@ -87,14 +79,10 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// @desc    Get single product by ID
-// @route   GET /api/products/:id
-// @access  Public
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('createdBy', 'name email');
 
-    // Confirm product exists
     if (!product) {
       return res.status(404).json({
         success: false,
@@ -115,14 +103,10 @@ const getProductById = async (req, res) => {
   }
 };
 
-// @desc    Update an existing product
-// @route   PUT /api/products/:id
-// @access  Authenticated
 const updateProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
-    // Confirm product exists before updating
     if (!product) {
       return res.status(404).json({
         success: false,
@@ -130,11 +114,10 @@ const updateProduct = async (req, res) => {
       });
     }
 
-    // Optional ownership check (allow owner to update, or provide clear status)
     if (product.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
-        message: 'Not authorized to update this product. You can only modify your own products.'
+        message: 'Not authorized to update this product.'
       });
     }
 
@@ -163,14 +146,10 @@ const updateProduct = async (req, res) => {
   }
 };
 
-// @desc    Delete a product
-// @route   DELETE /api/products/:id
-// @access  Authenticated
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
 
-    // Confirm product exists before deleting
     if (!product) {
       return res.status(404).json({
         success: false,
@@ -178,11 +157,10 @@ const deleteProduct = async (req, res) => {
       });
     }
 
-    // Optional ownership check
     if (product.createdBy.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         success: false,
-        message: 'Not authorized to delete this product. You can only delete your own products.'
+        message: 'Not authorized to delete this product.'
       });
     }
 

@@ -1,6 +1,5 @@
 const { body } = require('express-validator');
 
-// Register validation rules
 const registerRules = [
   body('name')
     .trim()
@@ -34,7 +33,6 @@ const registerRules = [
     })
 ];
 
-// Login validation rules
 const loginRules = [
   body('email')
     .trim()
