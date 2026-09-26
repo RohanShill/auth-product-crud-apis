@@ -20,7 +20,11 @@ const registerRules = [
     .notEmpty()
     .withMessage('Password is required')
     .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters long'),
+    .withMessage('Password must be at least 6 characters long')
+    .matches(/\d/)
+    .withMessage('Password must contain at least one number')
+    .matches(/[a-zA-Z]/)
+    .withMessage('Password must contain at least one letter'),
 
   body('confirmPassword')
     .notEmpty()

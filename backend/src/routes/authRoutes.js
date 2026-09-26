@@ -12,9 +12,10 @@ const {
 const { registerRules, loginRules } = require('../validators/authValidator');
 const validate = require('../middlewares/validateMiddleware');
 const authenticate = require('../middlewares/authMiddleware');
+const { loginLimiter } = require('../middlewares/rateLimiter');
 
 router.post('/register', registerRules, validate, register);
-router.post('/login', loginRules, validate, login);
+router.post('/login', loginLimiter, loginRules, validate, login);
 router.post('/refresh-token', refreshToken);
 
 router.post('/logout', authenticate, logout);
