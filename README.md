@@ -214,3 +214,4 @@ Visit **http://localhost:5173** in your browser.
 - Refresh Tokens persisted in database allowing instant server-side revocation on logout.
 - Generic 401 error responses on failed login to prevent username enumeration.
 - Strict input validation with `express-validator` to reject malformed or malicious payloads.
+- Rate limiting on login endpoint (`express-rate-limit`) to prevent brute-force attacks.
